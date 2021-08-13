@@ -2,6 +2,7 @@ const regex1 = new RegExp('1', 'g')
 const regex0 = new RegExp('0', 'g')
 const regexEmoji = new RegExp('😁', 'g')
 const regexDot = new RegExp('\\.', 'g')
+const splitRegex = new RegExp('.{7}', 'g')
 
 function mysterizeString(inputstr)
 {
@@ -10,7 +11,7 @@ function mysterizeString(inputstr)
 
 function demysterizeString(inputstr)
 {
-    return inputstr.replace(regexEmoji, "1").replace(regexDot, '0')
+    return inputstr.replace(regexEmoji, '1').replace(regexDot, '0')
 }
 
 function encrypt(value)
@@ -27,7 +28,7 @@ function decrypt(value)
 
 function decryptBinary(value)
 {
-    var newBin = value.split(" ");
+    var newBin = value.match(splitRegex);
     var binCode = [];
     
     for (i = 0; i < newBin.length; i++) {
@@ -40,8 +41,11 @@ function encryptBinary(value)
 {
     let result = ""
     for (i = 0; i < value.length; i++) {
-        result += value[i].charCodeAt(0).toString(2) + " "
+        result += value[i].charCodeAt(0).toString(2)
     }
 
     return result
 }
+
+let result = decrypt('😁😁😁.😁..😁😁..😁.😁😁😁😁..😁😁😁😁😁.😁..')
+console.log(result)
