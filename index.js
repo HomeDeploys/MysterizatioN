@@ -68,10 +68,12 @@ function bin2text(a) {
 document.querySelector("#decryptBtn").addEventListener("click",()=>{
     let field = document.querySelector("#textToDecrypt");
     console.log(decrypt(field.value))
-    field.value = decrypt(field.value);
+    document.querySelector("#textToEncrypt").focus();
+    document.querySelector("#textToEncrypt").value = decrypt(field.value);
 })
 
 document.querySelector("#encryptBtn").addEventListener("click",()=>{
     let field = document.querySelector("#textToEncrypt");
-    field.value = encrypt(field.value);
+    document.querySelector("#textToDecrypt").focus();
+    document.querySelector("#textToDecrypt").value = encrypt(field.value);
 })
