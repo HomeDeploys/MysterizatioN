@@ -1,11 +1,16 @@
+const regex1 = new RegExp('1', 'g')
+const regex0 = new RegExp('0', 'g')
+const regexEmoji = new RegExp('😁', 'g')
+const regexDot = new RegExp('\\.', 'g')
+
 function mysterizeString(inputstr)
 {
-    return inputstr.replaceAll("1", "😁").replaceAll("0", ".")
+    return inputstr.replace(regex1, '😁').replace(regex0, '.')
 }
 
 function demysterizeString(inputstr)
 {
-    return inputstr.replaceAll("😁", "1").replaceAll(".", "0")
+    return inputstr.replace(regexEmoji, "1").replace(regexDot, '0')
 }
 
 function encrypt(value)
