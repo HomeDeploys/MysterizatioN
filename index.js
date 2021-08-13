@@ -2,7 +2,7 @@ const regex1 = new RegExp('1', 'g')
 const regex0 = new RegExp('0', 'g')
 const regexEmoji = new RegExp('😁', 'g')
 const regexDot = new RegExp('\\.', 'g')
-const splitRegex = new RegExp('.{7}', 'g')
+const splitRegex = new RegExp('.{12}', 'g')
 
 function mysterizeString(inputstr)
 {
@@ -16,36 +16,63 @@ function demysterizeString(inputstr)
 
 function encrypt(value)
 {
-    let binaryResult = encryptBinary(value)
+    let binaryResult = text2bin(value)
     return mysterizeString(binaryResult)
 }
 
 function decrypt(value)
 {
     let binary = demysterizeString(value)
-    return decryptBinary(binary)
+    return bin2text(binary)
 }
 
-function decryptBinary(value)
-{
-    var newBin = value.match(splitRegex);
-    var binCode = [];
-    
-    for (i = 0; i < newBin.length; i++) {
-        binCode.push(String.fromCharCode(parseInt(newBin[i], 2)));
-      }
-    return binCode.join("");
+function dec2bin(a) {
+    return Number(parseInt(a, 10)).toString(2)
 }
 
-function encryptBinary(value)
-{
-    let result = ""
-    for (i = 0; i < value.length; i++) {
-        result += value[i].charCodeAt(0).toString(2)
-    }
-
-    return result
+function bin2dec(a) {
+    return parseInt(a, 2)
+}
+function bin2hex(a) {
+    return Number(parseInt(a, 2)).toString(16)
 }
 
-let result = decrypt('😁😁😁.😁..😁😁..😁.😁😁😁😁..😁😁😁😁😁.😁..')
-console.log(result)
+function hex2bin(a) {
+    return Number(parseInt(a, 16)).toString(2)
+}
+
+function buildOctet(a) {
+    for (var d = 8 - a.length, b = 0; b < d; b += 1)a = "0" + a;
+    return a
+}
+
+function text2bin(a) {
+    for (var d = "", b = [], c = a.length, b = "", e = 0; e < c; e += 1)b = encodeURIComponent(a.charAt(e)).split("%"), 2 < b.length ? (b = b[1] + b[2], d += hex2bin(b)) : d += buildOctet(dec2bin(a.charCodeAt(e)));
+    return d
+}
+
+function bin2text(a) {
+    for (var d = a.length >> 3, b = [], c = 0; c < d; c += 1)b[c] = a.substr(c << 3, 8);
+    a = b.length;
+    d = "";
+    for (c = 0; c < a; c += 1)if ("110" === b[c].substr(0, 3)) {
+        try {
+            d += decodeURIComponent("%" + bin2hex(b[c]) + "%" + bin2hex(b[c + 1]))
+        } catch (e) {
+            continue
+        }
+        c += 1
+    } else d += String.fromCharCode(bin2dec(b[c]));
+    return d
+};
+
+document.querySelector("#decryptBtn").addEventListener("click",()=>{
+    let field = document.querySelector("#textToDecrypt");
+    console.log(decrypt(field.value))
+    field.value = decrypt(field.value);
+})
+
+document.querySelector("#encryptBtn").addEventListener("click",()=>{
+    let field = document.querySelector("#textToEncrypt");
+    field.value = encrypt(field.value);
+})
