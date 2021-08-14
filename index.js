@@ -2,6 +2,9 @@ const regex1 = new RegExp('1', 'g')
 const regex0 = new RegExp('0', 'g')
 const regexEmoji = new RegExp('😁', 'g')
 const regexDot = new RegExp('\\.', 'g')
+const regexGrin = new RegExp(':grin:','g')
+const regexRickroll = new RegExp(/youtu\.{0,1}be.+dQw4w9WgXcQ$/gm)
+const rickrollLink = "https://youtu.be/dQw4w9WgXcQ"
 
 function mysterizeString(inputstr)
 {
@@ -64,16 +67,27 @@ function bin2text(a) {
     } else d += String.fromCharCode(bin2dec(b[c]));
     return d
 };
+function checkRickRoll(text) {
+    if (text.match(regexRickroll))
+        window.open(rickrollLink,"_blank");
+}
 
 document.querySelector("#decryptBtn").addEventListener("click",()=>{
-    let field = document.querySelector("#textToDecrypt");
-    console.log(decrypt(field.value))
-    document.querySelector("#textToEncrypt").focus();
-    document.querySelector("#textToEncrypt").value = decrypt(field.value);
+    let decryptedText = decrypt(document.querySelector("#textToDecrypt").value);
+    let resultField = document.querySelector("#textToEncrypt");
+    resultField.focus();
+    checkRickRoll(decryptedText);
+    resultField.value = decryptedText;
 })
 
 document.querySelector("#encryptBtn").addEventListener("click",()=>{
-    let field = document.querySelector("#textToEncrypt");
-    document.querySelector("#textToDecrypt").focus();
-    document.querySelector("#textToDecrypt").value = encrypt(field.value);
+    let encryptedText = encrypt(document.querySelector("#textToEncrypt").value);
+    let resultField = document.querySelector("#textToDecrypt");
+    resultField.focus();
+    resultField.value = encryptedText
+})
+
+document.querySelector("#textToDecrypt").addEventListener("input",()=>{
+    let field = document.querySelector("#textToDecrypt");
+    field.value = field.value.replace(regexGrin,"😁");
 })
