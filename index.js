@@ -2,6 +2,7 @@ const regex1 = new RegExp('1', 'g')
 const regex0 = new RegExp('0', 'g')
 const regexEmoji = new RegExp('😁', 'g')
 const regexDot = new RegExp('\\.', 'g')
+const regexGrin = new RegExp(':grin:','g')
 
 function mysterizeString(inputstr)
 {
@@ -77,3 +78,7 @@ document.querySelector("#encryptBtn").addEventListener("click",()=>{
     document.querySelector("#textToDecrypt").focus();
     document.querySelector("#textToDecrypt").value = encrypt(field.value);
 })
+
+document.querySelector("#textToDecrypt").addEventListener("input",()=>{
+    let field = document.querySelector("#textToDecrypt");
+    field.value = field.value.replace(regexGrin,"😁");
