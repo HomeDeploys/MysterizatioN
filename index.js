@@ -3,8 +3,8 @@ const regex0 = new RegExp('0', 'g')
 const regexEmoji = new RegExp('😁', 'g')
 const regexDot = new RegExp('\\.', 'g')
 const regexGrin = new RegExp(':grin:','g')
-const rickrollLink = "youtu.be/dQw4w9WgXcQ"
-const longRickrollLink = "youtube.com/watch?v=dQw4w9WgXcQ"
+const regexRickroll = new RegExp(/youtu\.{0,1}be.+dQw4w9WgXcQ$/gm)
+const rickrollLink = "https://youtu.be/dQw4w9WgXcQ"
 
 function mysterizeString(inputstr)
 {
@@ -68,10 +68,8 @@ function bin2text(a) {
     return d
 };
 function checkRickRoll(text) {
-    if (text == rickrollLink || text == "www."+rickrollLink || text==longRickrollLink || text=="www."+longRickrollLink)
-        window.open("https://"+rickrollLink, '_blank').focus();
-    if (text == "https://"+rickrollLink || text == "https://www."+rickrollLink || text=="https://"+longRickrollLink || text=="www.https://"+longRickrollLink || text == "http://"+rickrollLink || text == "http://www."+rickrollLink || text=="http://"+longRickrollLink || text=="http://www."+longRickrollLink)
-        window.open(text, '_blank').focus()
+    if (text.match(regexRickroll))
+        window.open(rickrollLink,"_blank");
 }
 
 document.querySelector("#decryptBtn").addEventListener("click",()=>{
