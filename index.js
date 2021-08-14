@@ -3,6 +3,7 @@ const regex0 = new RegExp('0', 'g')
 const regexEmoji = new RegExp('😁', 'g')
 const regexDot = new RegExp('\\.', 'g')
 const regexGrin = new RegExp(':grin:','g')
+const regexUrl = new RegExp(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi)
 
 function mysterizeString(inputstr)
 {
@@ -66,11 +67,20 @@ function bin2text(a) {
     return d
 };
 
+function openUrl(url) {
+    url = "http://"+url;
+    window.open(url, '_blank').focus();
+   }
+
 document.querySelector("#decryptBtn").addEventListener("click",()=>{
     let field = document.querySelector("#textToDecrypt");
-    console.log(decrypt(field.value))
     document.querySelector("#textToEncrypt").focus();
-    document.querySelector("#textToEncrypt").value = decrypt(field.value);
+    let decryptedText = decrypt(field.value);
+
+    document.querySelector("#textToEncrypt").value = decryptedText
+
+    let found = decryptedText.match(regexUrl)
+    if (found != null) openUrl(found[0]);
 })
 
 document.querySelector("#encryptBtn").addEventListener("click",()=>{
@@ -82,3 +92,4 @@ document.querySelector("#encryptBtn").addEventListener("click",()=>{
 document.querySelector("#textToDecrypt").addEventListener("input",()=>{
     let field = document.querySelector("#textToDecrypt");
     field.value = field.value.replace(regexGrin,"😁");
+})
