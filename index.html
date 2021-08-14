@@ -19,24 +19,54 @@
     <div class="container">
         <div class="row flex-row h-100 w-100 position-fixed align-items-center align-content-center justify-content-center m-auto" style="left: 0;">
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="card">
+                <div class="card mb-2">
                     <div class="card-body">
                         <div class="form-outline mb-1">
                             <textarea class="form-control" id="textToEncrypt" rows="4"></textarea>
                             <label class="form-label" for="textToEncrypt">Текст, который нужно зашифровать</label>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-info mt-3" id="encryptBtn">Зашифровать</button>
                             </div>
-                        <button type="submit" class="btn btn-info mt-3"  id="encryptBtn">Зашифровать</button>
+                            <div class="col text-end">
+                                <div class="col text-end">
+                                    <a class="btn btn-info mt-3 copy-result-btn" 
+                                    textareaId="textToEncrypt"
+                                    tabindex="0"
+                                    data-mdb-toggle="popover" 
+                                    data-mdb-trigger="focus"
+                                    data-mdb-placement="top"
+                                    data-mdb-content="Copied!">Скопировать
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="card">
+                <div class="card mb-2">
                     <div class="card-body">
                         <div class="form-outline mb-1">
                             <textarea class="form-control" id="textToDecrypt" rows="4"></textarea>
                             <label class="form-label" for="textToDecrypt">Текст, который нужно расшифровать</label>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-info mt-3" id="decryptBtn">Расшифровать</button>
                             </div>
-                        <button type="submit" class="btn btn-info mt-3" id="decryptBtn">Расшифровать</button>
+                            <div class="col text-end">
+                                <a class="btn btn-info mt-3 copy-result-btn" 
+                                textareaId="textToDecrypt"
+                                tabindex="0"
+                                data-mdb-toggle="popover" 
+                                data-mdb-trigger="focus"
+                                data-mdb-placement="top"
+                                data-mdb-content="Copied!">Скопировать
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
