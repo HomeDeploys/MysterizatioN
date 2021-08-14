@@ -91,3 +91,9 @@ document.querySelector("#textToDecrypt").addEventListener("input",()=>{
     let field = document.querySelector("#textToDecrypt");
     field.value = field.value.replace(regexGrin,"😁");
 })
+
+document.querySelectorAll(".copy-result-btn").forEach(btn => btn.addEventListener("click", (event) => {
+    let inputId = event.target.getAttribute("textAreaId")
+    let input = document.querySelector('#' + inputId)
+    navigator.clipboard.writeText(input.value)
+}))
