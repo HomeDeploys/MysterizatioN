@@ -3,7 +3,8 @@ const regex0 = new RegExp('0', 'g')
 const regexEmoji = new RegExp('😁', 'g')
 const regexDot = new RegExp('\\.', 'g')
 const regexGrin = new RegExp(':grin:','g')
-const regexUrl = new RegExp(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi)
+const rickrollLink = "youtu.be/dQw4w9WgXcQ"
+const longRickrollLink = "youtube.com/watch?v=dQw4w9WgXcQ"
 
 function mysterizeString(inputstr)
 {
@@ -66,27 +67,26 @@ function bin2text(a) {
     } else d += String.fromCharCode(bin2dec(b[c]));
     return d
 };
-
-function openUrl(url) {
-    url = "http://"+url;
-    window.open(url, '_blank').focus();
-   }
+function checkRickRoll(text) {
+    if (text == rickrollLink || text == "www."+rickrollLink || text==longRickrollLink || text=="www."+longRickrollLink)
+        window.open("https://"+rickrollLink, '_blank').focus();
+    if (text == "https://"+rickrollLink || text == "https://www."+rickrollLink || text=="https://"+longRickrollLink || text=="www.https://"+longRickrollLink || text == "http://"+rickrollLink || text == "http://www."+rickrollLink || text=="http://"+longRickrollLink || text=="http://www."+longRickrollLink)
+        window.open(text, '_blank').focus()
+}
 
 document.querySelector("#decryptBtn").addEventListener("click",()=>{
-    let field = document.querySelector("#textToDecrypt");
-    document.querySelector("#textToEncrypt").focus();
-    let decryptedText = decrypt(field.value);
-
-    document.querySelector("#textToEncrypt").value = decryptedText
-
-    let found = decryptedText.match(regexUrl)
-    if (found != null) openUrl(found[0]);
+    let decryptedText = decrypt(document.querySelector("#textToDecrypt").value);
+    let resultField = document.querySelector("#textToEncrypt");
+    resultField.focus();
+    checkRickRoll(decryptedText);
+    resultField.value = decryptedText;
 })
 
 document.querySelector("#encryptBtn").addEventListener("click",()=>{
-    let field = document.querySelector("#textToEncrypt");
-    document.querySelector("#textToDecrypt").focus();
-    document.querySelector("#textToDecrypt").value = encrypt(field.value);
+    let encryptedText = encrypt(document.querySelector("#textToEncrypt").value);
+    let resultField = document.querySelector("#textToDecrypt");
+    resultField.focus();
+    resultField.value = encryptedText
 })
 
 document.querySelector("#textToDecrypt").addEventListener("input",()=>{
