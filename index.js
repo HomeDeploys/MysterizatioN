@@ -49,22 +49,45 @@ function buildOctet(a) {
 }
 
 function text2bin(a) {
-    for (var d = "", b = [], c = a.length, b = "", e = 0; e < c; e += 1)b = encodeURIComponent(a.charAt(e)).split("%"), 2 < b.length ? (b = b[1] + b[2], d += hex2bin(b)) : d += buildOctet(dec2bin(a.charCodeAt(e)));
+    for (var d = "", b = [], c = a.length, b = "", e = 0; e < c; e += 1){
+        let val = a.charAt(e)
+        if(val === '\ud83d'){
+            let nextVal = a.charAt(e + 1)
+            if(nextVal === '\ude01')
+            {
+                val += nextVal
+                e++
+            }
+        }
+
+        b = encodeURIComponent(val).split("%"), 2 < b.length ? (b = b[1] + b[2], d += hex2bin(b)) : d += buildOctet(dec2bin(a.charCodeAt(e)));
+    }
     return d
 }
 
 function bin2text(a) {
-    for (var d = a.length >> 3, b = [], c = 0; c < d; c += 1)b[c] = a.substr(c << 3, 8);
+    for (var d = a.length >> 3, b = [], c = 0; c < d; c += 1){
+        b[c] = a.substr(c << 3, 8);
+    }
     a = b.length;
     d = "";
-    for (c = 0; c < a; c += 1)if ("110" === b[c].substr(0, 3)) {
-        try {
-            d += decodeURIComponent("%" + bin2hex(b[c]) + "%" + bin2hex(b[c + 1]))
-        } catch (e) {
-            continue
-        }
+    for (c = 0; c < a; c += 1){
+        if ("110" === b[c].substr(0, 3)) {
+            try {
+                d += decodeURIComponent("%" + bin2hex(b[c]) + "%" + bin2hex(b[c + 1]))
+            } catch (e) {
+                continue
+            }
         c += 1
-    } else d += String.fromCharCode(bin2dec(b[c]));
+        } 
+        else if(b[c] == "11110000" && b[c + 1] == "10011111"){
+            d += '😁'
+            c++
+        }
+        else{
+            d += String.fromCharCode(bin2dec(b[c]));
+        }
+    }
     return d
 };
 function checkRickRoll(text) {
