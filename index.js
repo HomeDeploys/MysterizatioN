@@ -98,6 +98,7 @@ function checkRickRoll(text) {
 document.querySelector("#decryptBtn").addEventListener("click",()=>{
     let decryptedText = decrypt(document.querySelector("#textToDecrypt").value);
     let resultField = document.querySelector("#textToEncrypt");
+    if (!resultField.classList.contains("active")) resultField.classList.add("active")
     resultField.focus();
     checkRickRoll(decryptedText);
     resultField.value = decryptedText;
@@ -106,6 +107,7 @@ document.querySelector("#decryptBtn").addEventListener("click",()=>{
 document.querySelector("#encryptBtn").addEventListener("click",()=>{
     let encryptedText = encrypt(document.querySelector("#textToEncrypt").value);
     let resultField = document.querySelector("#textToDecrypt");
+    if (!resultField.classList.contains("active")) resultField.classList.add("active")
     resultField.focus();
     resultField.value = encryptedText
 })
