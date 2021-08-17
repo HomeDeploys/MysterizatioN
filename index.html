@@ -13,6 +13,20 @@
         body {
             background-color: #fafafa;
         }
+
+        footer {
+            z-index: -5!important;
+        }
+
+        .popover {
+            border: 1px #BDBDBD solid!important;
+            border-radius: 5px;
+        }
+
+        .popover-body {
+            padding: 0.5rem;
+            font-size: medium;
+        }
     </style>
 </head>
 <body>
@@ -30,16 +44,15 @@
                                 <button type="submit" class="btn btn-info mt-3" id="encryptBtn">Зашифровать</button>
                             </div>
                             <div class="col text-end">
-                                <div class="col text-end">
                                     <a class="btn btn-info mt-3 copy-result-btn" 
                                     textareaId="textToEncrypt"
                                     tabindex="0"
                                     data-mdb-toggle="popover" 
                                     data-mdb-trigger="focus"
                                     data-mdb-placement="top"
+                                    data-mdb-customClass="copyPopover"
                                     data-mdb-content="Copied!">Скопировать
                                     </a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,6 +76,7 @@
                                 data-mdb-toggle="popover" 
                                 data-mdb-trigger="focus"
                                 data-mdb-placement="top"
+                                data-mdb-customClass="copyPopover"
                                 data-mdb-content="Copied!">Скопировать
                                 </a>
                             </div>
